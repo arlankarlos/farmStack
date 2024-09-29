@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import ListToDoLists from "./ListToDoLists";
@@ -18,7 +18,7 @@ function App() {
     setListSummaries(data);
   }
 
-  function handleNewToDoList(newName){
+  function handleNewToDoList(newName) {
     const updateData = async () => {
       const newListData = {
         name: newName,
@@ -30,7 +30,7 @@ function App() {
     updateData();
   }
 
-  function handleDeleteToDoList(id){
+  function handleDeleteToDoList(id) {
     const updateData = async () => {
       await axios.delete(`/api/lists/${id}`);
       reloadData().catch(console.error);
@@ -38,27 +38,27 @@ function App() {
     updateData();
   }
 
-  function handleSelectToDoList(id){
-    console.log("Selecting item", id)
+  function handleSelectList(id) {
+    console.log("Selecting item", id);
     setSelectedItem(id);
   }
 
-  function backToList(){
+  function backToList() {
     setSelectedItem(null);
     reloadData().catch(console.error);
   }
 
-  if (selectedItem === null){
+  if (selectedItem === null) {
     return (
       <div className="App">
         <ListToDoLists
           listSummaries={listSummaries}
+          handleSelectList={handleSelectList}
           handleNewToDoList={handleNewToDoList}
           handleDeleteToDoList={handleDeleteToDoList}
-          handleSelectToDoList={handleSelectToDoList}
         />
       </div>
-    )
+    );
   } else {
     return (
       <div className="App">
